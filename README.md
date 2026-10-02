@@ -2,7 +2,7 @@
 
 ### STEP 1
 Edit path to clang compiler in `custom-clang.cmake`
-```
+```cmake
 set(CMAKE_SYSTEM_NAME               Generic)
 set(CMAKE_SYSTEM_PROCESSOR          arm)
 
@@ -21,13 +21,13 @@ set(CMAKE_SIZE                      ${TOOLCHAIN_PREFIX}llvm-size)
 
 ### STEP 2
 edit ld script generated from stm32cubeMX and remove all `(READONLY)`
-```
+```bash
 $ sed -i "s/(READONLY)//g" [filename].ld
 ```
 
 ### STEP3 
 generate makefile (or ninja) and compile it
-```
+```bash
 $ cmake -B build # -G Ninja
 $ cmake --build build -- -j$(nproc)
 ```
