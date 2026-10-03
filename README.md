@@ -28,6 +28,6 @@ $ sed -i "s/(READONLY)//g" [filename].ld
 ### STEP3 
 generate makefile (or ninja) and compile it
 ```bash
-$ cmake -B build # -G Ninja
+$ cmake -B build -DCMAKE_TOOLCHAIN_FILE=`path/to/toolchain/file` # -DCMAKE_BUILD_TYPE=Release -G Ninja
 $ cmake --build build -- -j$(nproc)
 ```
