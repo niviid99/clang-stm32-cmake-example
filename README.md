@@ -1,14 +1,12 @@
 # Easy clang toolchain guide for stm32 cube project
 
 ### STEP 1
-Edit path to clang compiler in `custom-clang.cmake`
+Edit `custom-clang.cmake`
 ```cmake
-#...
-
-set(TOOLCHAIN_PREFIX                /opt/LLVM-ET-Arm-19.1.5-Linux-x86_64/bin/) # SET PATH HERE
-
-set(CMAKE_C_COMPILER                ${TOOLCHAIN_PREFIX}clang)
-set(CMAKE_ASM_COMPILER              ${CMAKE_C_COMPILER})
+set(PATH_TO_COMPILER /opt/LLVM-ET-Arm-19.1.5-Linux-x86_64/bin/) # SET PATH HERE
+set(LDSCRIPT         STM32F401XX_FLASH.ld)                  # SET FILENAME HERE
+set(MCPU             cortex-m4)                             # SET MCPU HERE
+set(MFPU             fpv4-sp-d16)                           # SEt MFPU HERE
 #...
 ```
 

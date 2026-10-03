@@ -1,10 +1,16 @@
+set(PATH_TO_COMPILER /opt/LLVM-ET-Arm-19.1.5-Linux-x86_64/bin/) # SET PATH HERE
+set(LDSCRIPT         STM32F401XX_FLASH.ld)                  # SET FILENAME HERE
+set(MCPU             cortex-m4)                             # SET MCPU HERE
+set(MFPU             fpv4-sp-d16)                           # SEt MFPU HERE
+
+
 set(CMAKE_SYSTEM_NAME               Generic)
 set(CMAKE_SYSTEM_PROCESSOR          arm)
 
 set(CMAKE_C_COMPILER_ID Clang)
 set(CMAKE_CXX_COMPILER_ID Clang)
 
-set(TOOLCHAIN_PREFIX                /opt/LLVM-ET-Arm-19.1.5-Linux-x86_64/bin/) # SET PATH HERE
+set(TOOLCHAIN_PREFIX                ${PATH_TO_COMPILER})
 
 set(CMAKE_C_COMPILER                ${TOOLCHAIN_PREFIX}clang)
 set(CMAKE_ASM_COMPILER              ${CMAKE_C_COMPILER})
@@ -32,7 +38,7 @@ elseif (STARM_TOOLCHAIN_CONFIG STREQUAL "STARM_NEWLIB")
 endif()
 
 # MCU specific flags
-set(TARGET_FLAGS "-mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard ${TOOLCHAIN_MULTILIBS}")
+set(TARGET_FLAGS "-mcpu=${MCPU} -mfpu=${MFPU} -mfloat-abi=hard ${TOOLCHAIN_MULTILIBS}")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${TARGET_FLAGS}")
 set(CMAKE_ASM_FLAGS "${CMAKE_C_FLAGS} -x assembler-with-cpp -MP")
@@ -57,7 +63,7 @@ elseif(STARM_TOOLCHAIN_CONFIG STREQUAL "STARM_PICOLIBC")
 
 endif()
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T \"${CMAKE_SOURCE_DIR}/STM32F401XX_FLASH.ld\"")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T \"${CMAKE_SOURCE_DIR}/${LDSCRIPT}\"")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Map=${CMAKE_PROJECT_NAME}.map -Wl,--gc-sections")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -z noexecstack")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--print-memory-usage ")
